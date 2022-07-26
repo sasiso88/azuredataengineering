@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "3cd913c3-eb4f-4c06-9ee6-2438a094ccf8"
+				"spark.autotune.trackingId": "fca7eeb3-0784-490a-a0cb-29a3cdd86c8e"
 			}
 		},
 		"metadata": {
@@ -28,7 +28,7 @@
 				"display_name": "Synapse PySpark"
 			},
 			"language_info": {
-				"name": "csharp"
+				"name": "python"
 			},
 			"a365ComputeOptions": {
 				"id": "/subscriptions/8cb87f9b-3c0b-483d-b144-8fad45518c34/resourceGroups/rg_DP203_synapse/providers/Microsoft.Synapse/workspaces/ssdp203arh/bigDataPools/SparkAZ",
@@ -47,6 +47,43 @@
 			},
 			"sessionKeepAliveTimeout": 30
 		},
-		"cells": []
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"from azureml.opendatasets import NycTlcYellow\r\n",
+					"from dateutil import parser\r\n",
+					"from datetime import datetime\r\n",
+					"\r\n",
+					"end_date = parser.parse('2018-05-06')\r\n",
+					"start_date = parser.parse('2018-05-01')\r\n",
+					"nyc_tlc = NycTlcYellow(start_date=start_date, end_date=end_date)\r\n",
+					"filtered_df = nyc_tlc.to_spark_dataframe()"
+				],
+				"execution_count": 8
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"spark.sql(\"CREATE DATABASE IF NOT EXISTS NycTlcTutorial\")"
+				],
+				"execution_count": 9
+			}
+		]
 	}
 }
