@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "f3ffae9c-1179-48c4-adc0-12250249062d"
+				"spark.autotune.trackingId": "4934ff65-7bb8-4a53-a87d-eac68443b9e7"
 			}
 		},
 		"metadata": {
@@ -108,10 +108,10 @@
 					"mssparkutils.fs.mount( \r\n",
 					"    \"abfss://test@sssyndatagen2.dfs.core.windows.net\", \r\n",
 					"    \"/synapse\", \r\n",
-					"    {\"linkedService\":\"mygen2account\"} \r\n",
+					"    {\"linkedService\":\"ssdp203arh-WorkspaceDefaultStorage\"} \r\n",
 					") "
 				],
-				"execution_count": null
+				"execution_count": 7
 			}
 		]
 	}
