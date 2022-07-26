@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "fca7eeb3-0784-490a-a0cb-29a3cdd86c8e"
+				"spark.autotune.trackingId": "567ecad7-f2f4-4b10-9cad-fe3b6acf253b"
 			}
 		},
 		"metadata": {
@@ -83,6 +83,57 @@
 					"spark.sql(\"CREATE DATABASE IF NOT EXISTS NycTlcTutorial\")"
 				],
 				"execution_count": 9
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"from pyspark.sql.functions import unix_timestamp, date_format, col, when\r\n",
+					"\r\n",
+					"taxi_df = filtered_df.select('totalAmount', 'fareAmount', 'tipAmount', 'paymentType', 'rateCodeId', 'passengerCount'\\\r\n",
+					"                                , 'tripDistance', 'tpepPickupDateTime', 'tpepDropoffDateTime'\\\r\n",
+					"                                , date_format('tpepPickupDateTime', 'hh').alias('pickupHour')\\\r\n",
+					"                                , date_format('tpepPickupDateTime', 'EEEE').alias('weekdayString')\\\r\n",
+					"                                , (unix_timestamp(col('tpepDropoffDateTime')) - unix_timestamp(col('tpepPickupDateTime'))).alias('tripTimeSecs')\\\r\n",
+					"                                , (when(col('tipAmount') > 0, 1).otherwise(0)).alias('tipped')\r\n",
+					"                                )\\\r\n",
+					"                        .filter((filtered_df.passengerCount > 0) & (filtered_df.passengerCount < 8)\\\r\n",
+					"                                & (filtered_df.tipAmount >= 0) & (filtered_df.tipAmount <= 25)\\\r\n",
+					"                                & (filtered_df.fareAmount >= 1) & (filtered_df.fareAmount <= 250)\\\r\n",
+					"                                & (filtered_df.tipAmount < filtered_df.fareAmount)\\\r\n",
+					"                                & (filtered_df.tripDistance > 0) & (filtered_df.tripDistance <= 100)\\\r\n",
+					"                                & (filtered_df.rateCodeId <= 5)\r\n",
+					"                                & (filtered_df.paymentType.isin({\"1\", \"2\"})))"
+				],
+				"execution_count": 10
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"taxi_df.write.mode(\"overwrite\").saveAsTable(\"NycTlcTutorial.nyctaxi\")"
+				],
+				"execution_count": 11
 			}
 		]
 	}
