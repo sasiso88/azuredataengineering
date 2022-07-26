@@ -2,7 +2,7 @@
 	"name": "SQL script 1",
 	"properties": {
 		"content": {
-			"query": "SELECT TOP (100) [totalAmount]\n,[fareAmount]\n,[tipAmount]\n,[paymentType]\n,[rateCodeId]\n,[passengerCount]\n,[tripDistance]\n,[tpepPickupDateTime]\n,[tpepDropoffDateTime]\n,[pickupHour]\n,[weekdayString]\n,[tripTimeSecs]\n,[tipped]\n FROM [nyctlctutorial].[dbo].[nyctaxi]",
+			"query": "SELECT TOP (100) [totalAmount]\n,[fareAmount]\n,[tipAmount]\n,[paymentType]\n,[rateCodeId]\n,[passengerCount]\n,[tripDistance]\n,[tpepPickupDateTime]\n,[tpepDropoffDateTime]\n,[pickupHour]\n,[weekdayString]\n,[tripTimeSecs]\n,[tipped]\n FROM [nyctlctutorial].[dbo].[nyctaxi] where tipAmount>8",
 			"metadata": {
 				"language": "sql"
 			},
