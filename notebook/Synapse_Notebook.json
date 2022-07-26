@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "5c0c86d6-8ae4-4efd-932e-1d7d93f64913"
+				"spark.autotune.trackingId": "66b4adc1-a6b6-4ab9-8707-f0284e01821a"
 			}
 		},
 		"metadata": {
@@ -87,9 +87,9 @@
 					}
 				},
 				"source": [
-					"mssparkutils.fs.head(\"abfss://test@sssyndatagen2.dfs.core.windows.net/synapse/Customer.txt\", 1000000)"
+					"mssparkutils.fs.head(\"abfss://test@sssyndatagen2.dfs.core.windows.net/synapse/Customer.txt\", 1000)"
 				],
-				"execution_count": 6
+				"execution_count": 8
 			},
 			{
 				"cell_type": "code",
